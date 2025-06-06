@@ -18,6 +18,6 @@ def explain_sql_error(sql_query: str) -> str:
     return explanation
 
 # Пример
-query = "SELECT * FROM"
+query = "SELECT * FROM employees WHERE department = 'Sales';"
 print("Запрос:", query)
 print("Объяснение:", explain_sql_error(query))
