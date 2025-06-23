@@ -3,10 +3,8 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration, Trainer, Train
 from torch.utils.data import Dataset
 import torch
 
-# Загрузка данных
 df = pd.read_csv("sql_explanation_dataset.csv")
 
-# Препроцессинг: входной текст = SQL-запрос, целевой = объяснение
 class SQLExplainDataset(Dataset):
     def __init__(self, dataframe, tokenizer, max_len=128):
         self.tokenizer = tokenizer
@@ -36,15 +34,12 @@ class SQLExplainDataset(Dataset):
             'labels': target_enc['input_ids'].squeeze()
         }
 
-# Модель и токенизатор
 model_name = "google/flan-t5-small"
 tokenizer = T5Tokenizer.from_pretrained(model_name)
 model = T5ForConditionalGeneration.from_pretrained(model_name)
 
-# Датасет
 dataset = SQLExplainDataset(df, tokenizer)
 
-# Параметры обучения
 args = TrainingArguments(
     output_dir="flan_sql_explainer",
     per_device_train_batch_size=8,
@@ -61,9 +56,7 @@ trainer = Trainer(
     train_dataset=dataset
 )
 
-# Обучение
 trainer.train()
 
-# Сохранение
 model.save_pretrained("flan_sql_explainer")
 tokenizer.save_pretrained("flan_sql_explainer")

@@ -4,11 +4,9 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset
 import torch
 
-# Загрузка данных
 train_df = pd.read_csv('data/train.csv')
 test_df = pd.read_csv('data/test.csv')
 
-# Токенизация
 tokenizer = DistilBertTokenizerFast.from_pretrained('distilbert-base-uncased')
 
 class SQLDataset(Dataset):
@@ -27,10 +25,8 @@ class SQLDataset(Dataset):
 train_dataset = SQLDataset(train_df['query'].tolist(), train_df['is_valid'].tolist())
 test_dataset = SQLDataset(test_df['query'].tolist(), test_df['is_valid'].tolist())
 
-# Модель
 model = DistilBertForSequenceClassification.from_pretrained("distilbert-base-uncased", num_labels=2)
 
-# Аргументы обучения
 training_args = TrainingArguments(
     output_dir='./results',
     num_train_epochs=4,

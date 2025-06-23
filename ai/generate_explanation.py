@@ -1,6 +1,5 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
-# Загрузка обученной модели
 model = T5ForConditionalGeneration.from_pretrained("flan_sql_explainer")
 tokenizer = T5Tokenizer.from_pretrained("flan_sql_explainer")
 
@@ -20,6 +19,6 @@ def explain_sql_error(sql_query: str) -> str:
 
 
 # Пример
-query = "SELECT * FROM employees WHERE department = 'Sales';"
-print("Запрос:", query)
-print("Объяснение:", explain_sql_error(query))
+# query = "SELECT * FROM employees WHERE department = 'Sales';"
+# print("Запрос:", query)
+# print("Объяснение:", explain_sql_error(query))
