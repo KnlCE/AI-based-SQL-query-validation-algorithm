@@ -17,7 +17,7 @@ def check_sql(query: str):
 # result, probs = check_sql(query)
 # print("Результат:", result)
 # print("Вероятности:", probs)
-query = "SELEСT * FROM users"
+query = "UPDAT employees SET salary = salary * 1.1 WHERE department = 'HR';"
 
 status, _ = check_sql(query)
 
