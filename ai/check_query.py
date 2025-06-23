@@ -2,7 +2,6 @@ from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassific
 import torch
 from generate_explanation import explain_sql_error
 
-# Загрузка модели
 model = DistilBertForSequenceClassification.from_pretrained('./sql_model')
 tokenizer = DistilBertTokenizerFast.from_pretrained('./sql_model')
 

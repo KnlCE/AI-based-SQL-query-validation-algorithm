@@ -1,6 +1,6 @@
 import asyncio
 from aiogram import Bot, Dispatcher
-from handlers.start_cmd import router
+from handlers.bot_handlers import router
 from config import TOKEN
 
 
