@@ -37,7 +37,7 @@ async def handle_sql_query(message: types.Message):
         if result.status != 'left':
             try:
                 explanation = explain_sql_error(message.text)
-                await message.answer(f"Анализ вашего SQL-запроса:\n\n{explanation}")
+                await message.answer(f"Ваш запрос: {message.text}\n\n{explanation}")
             except Exception as e:
                 await message.answer("Произошла ошибка при анализе запроса. Пожалуйста, попробуйте еще раз.")
         else:

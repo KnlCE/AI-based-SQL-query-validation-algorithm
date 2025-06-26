@@ -1,9 +1,9 @@
 import pandas as pd
 from transformers import T5Tokenizer, T5ForConditionalGeneration, Trainer, TrainingArguments
 from torch.utils.data import Dataset
-import torch
 
 df = pd.read_csv("sql_explanation_dataset.csv")
+
 
 class SQLExplainDataset(Dataset):
     def __init__(self, dataframe, tokenizer, max_len=128):
@@ -33,6 +33,7 @@ class SQLExplainDataset(Dataset):
             'attention_mask': input_enc['attention_mask'].squeeze(),
             'labels': target_enc['input_ids'].squeeze()
         }
+
 
 model_name = "google/flan-t5-small"
 tokenizer = T5Tokenizer.from_pretrained(model_name)

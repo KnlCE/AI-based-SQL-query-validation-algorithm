@@ -1,11 +1,18 @@
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 
-model = T5ForConditionalGeneration.from_pretrained("flan_sql_explainer")
-tokenizer = T5Tokenizer.from_pretrained("flan_sql_explainer")
+model = T5ForConditionalGeneration.from_pretrained("ai/flan_sql_explainer")
+tokenizer = T5Tokenizer.from_pretrained("ai/flan_sql_explainer")
 
 
 def explain_sql_error(sql_query: str) -> str:
-    input_text = "explain error: " + sql_query
+    input_text = (
+            "Проанализируй SQL-запрос и выведи результат в формате:\n"
+            "Синтаксические ошибки: Syntax error\n"
+            "Логические ошибки: Logic error\n"
+            "Рекомендации по оптимизации: optimization_error\n."
+            "If incorrect query: Ошибка, запрос не корректен"
+            "Запрос: " + sql_query
+    )
     inputs = tokenizer(input_text, return_tensors="pt", truncation=True)
 
     outputs = model.generate(
@@ -19,6 +26,6 @@ def explain_sql_error(sql_query: str) -> str:
 
 
 # Пример
-# query = "SELECT * FROM employees WHERE department = 'Sales';"
+# query = "SELEC * FROM employees;"
 # print("Запрос:", query)
 # print("Объяснение:", explain_sql_error(query))
